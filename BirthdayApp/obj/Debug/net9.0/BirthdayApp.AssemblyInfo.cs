@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BirthdayApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1e1a8f34fe022d265b4c8163479abc2b9a708ba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+449ef14fe60e9a61c4d82daa37381cf070983f10")]
 [assembly: System.Reflection.AssemblyProductAttribute("BirthdayApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BirthdayApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

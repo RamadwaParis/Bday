@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260604140950_AddCreatedByToBirthdays")]
-    partial class AddCreatedByToBirthdays
+    [Migration("20260604163937_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
