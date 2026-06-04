@@ -1,0 +1,111 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<style>
+    /* CSS Grid Configuration for Admin Control Center */
+    .admin-grid-layout {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .full-width-log-row {
+        grid-column: span 2;
+    }
+
+    /* Fixed Razor Escape for CSS Queries */
+    @@media (max-width: 992px) {
+        .admin-grid-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .full-width-log-row {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold m-0" style="color: #0f172a;">Governance Console</h2>
+            <p class="text-muted m-0 small">Manage incoming platform memberships and review background activity records.</p>
+        </div>
+    </div>
+
+    <div class="admin-grid-layout">
+
+        <div class="dashboard-card">
+            <h5 class="fw-bold text-danger mb-3"><i class="bi bi-person-fill-exclamation"></i> Pending Applications</h5>
+            <hr class="mt-0 border-light-subtle">
+
+            @if (ViewBag.PendingUsers.Count == 0)
+            {
+                <div class="text-center py-4 text-muted small">No pending registrations outstanding.</div>
+            }
+            else
+            {
+                <div class="d-flex flex-column gap-2">
+                    @foreach (var user in ViewBag.PendingUsers)
+                    {
+                        <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="fw-bold text-dark d-block">@user.FullName</span>
+                                <span class="small text-muted">@user.Email</span>
+                            </div>
+                            <a href="/Admin/ApproveUser/@user.Id" class="btn btn-teal btn-sm px-3 shadow-sm"><i class="bi bi-check-lg"></i> Grant Access</a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="dashboard-card">
+            <h5 class="fw-bold text-success mb-3"><i class="bi bi-person-check-fill"></i> Authorized Members</h5>
+            <hr class="mt-0 border-light-subtle">
+
+            <div class="d-flex flex-column gap-2" style="max-height: 280px; overflow-y: auto;">
+                @foreach (var user in ViewBag.ApprovedUsers)
+                {
+                    <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="fw-bold text-dark d-block">@user.FullName</span>
+                            <span class="small text-muted">@user.Email</span>
+                        </div>
+                        <a href="/Admin/RevokeUser/@user.Id" class="btn btn-outline-danger btn-sm px-2.5 py-1"><i class="bi bi-x-circle"></i> Revoke</a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="dashboard-card full-width-log-row">
+            <h5 class="fw-bold text-dark mb-3"><i class="bi bi-terminal-split"></i> Platform System Audit Log</h5>
+            <hr class="mt-0 border-light-subtle">
+
+            <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-hover align-middle m-0 small">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Identity Account</th>
+                            <th>Execution Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in ViewBag.Logs)
+                        {
+                            <tr>
+                                <td class="text-muted font-monospace">@log.Timestamp</td>
+                                <td class="fw-semibold">@log.UserEmail</td>
+                                <td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning px-2 py-1">@log.ActionDetail</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
