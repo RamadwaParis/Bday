@@ -19,22 +19,22 @@ namespace BirthdayApp.Controllers
             _userManager = userManager;
         }
 
+        private bool IsAdmin() => HttpContext.Session.GetString("UserRole") == "Admin";
+
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("UserRole") != "Admin")
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            if (!IsAdmin()) return RedirectToAction("Login", "Account");
 
             ViewBag.PendingUsers = _userManager.Users.Where(u => !u.IsApproved).ToList();
             ViewBag.ApprovedUsers = _userManager.Users.Where(u => u.IsApproved).ToList();
             ViewBag.Logs = _context.SystemLogs.OrderByDescending(l => l.Timestamp).Take(30).ToList();
+
             return View();
         }
 
         public async Task<IActionResult> ApproveUser(string id)
         {
-            if (HttpContext.Session.GetString("UserRole") != "Admin") return RedirectToAction("Login", "Account");
+            if (!IsAdmin()) return RedirectToAction("Login", "Account");
 
             var user = await _userManager.FindByIdAsync(id);
             if (user != null)
@@ -42,19 +42,14 @@ namespace BirthdayApp.Controllers
                 user.IsApproved = true;
                 await _userManager.UpdateAsync(user);
 
-                _context.SystemLogs.Add(new SystemLog
-                {
-                    UserEmail = "System Admin",
-                    ActionDetail = $"Approved Account Profile Access for: {user.Email}"
-                });
-                await _context.SaveChangesAsync();
+                await LogAction($"Approved Account Profile Access for: {user.Email}");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> RevokeUser(string id)
         {
-            if (HttpContext.Session.GetString("UserRole") != "Admin") return RedirectToAction("Login", "Account");
+            if (!IsAdmin()) return RedirectToAction("Login", "Account");
 
             var user = await _userManager.FindByIdAsync(id);
             if (user != null)
@@ -62,14 +57,20 @@ namespace BirthdayApp.Controllers
                 user.IsApproved = false;
                 await _userManager.UpdateAsync(user);
 
-                _context.SystemLogs.Add(new SystemLog
-                {
-                    UserEmail = "System Admin",
-                    ActionDetail = $"Revoked/Suspended Account Profile Access for: {user.Email}"
-                });
-                await _context.SaveChangesAsync();
+                await LogAction($"Revoked/Suspended Account Profile Access for: {user.Email}");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Private helper to clean up log creation logic
+        private async Task LogAction(string detail)
+        {
+            _context.SystemLogs.Add(new SystemLog
+            {
+                UserEmail = "System Admin",
+                ActionDetail = detail
+            });
+            await _context.SaveChangesAsync();
         }
     }
 }

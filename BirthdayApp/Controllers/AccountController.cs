@@ -12,7 +12,7 @@ namespace BirthdayApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        // Hardcoded Credentials
+        // Hardcoded Credentials preserved as per your requirement
         private const string HardcodedAdminEmail = "admin@birthdayapp.com";
         private const string HardcodedAdminPassword = "AdminPass123!";
 
@@ -90,7 +90,11 @@ namespace BirthdayApp.Controllers
                 return RedirectToAction("Login");
             }
 
-            foreach (var error in result.Errors) ModelState.AddModelError("", error.Description);
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
             return View();
         }
 

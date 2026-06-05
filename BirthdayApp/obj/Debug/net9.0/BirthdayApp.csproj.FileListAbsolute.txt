@@ -145,7 +145,6 @@ C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\rjsmcshtml.dsw
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\scopedcss\bundle\BirthdayApp.styles.css
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\scopedcss\projectbundle\BirthdayApp.bundle.scp.css
-C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\compressed\yvt9b4iqjo-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\compressed\wuqrb1z3vy-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\compressed\6nj1pmyej5-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\compressed\zvcp79yz7h-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -221,3 +220,4 @@ C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\refint\Birthda
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\BirthdayApp.pdb
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\BirthdayApp.genruntimeconfig.cache
 C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\ref\BirthdayApp.dll
+C:\Users\ramad\Downloads\BirthdayApp\BirthdayApp\obj\Debug\net9.0\compressed\yvt9b4iqjo-{0}-wyj9nj39j2-wyj9nj39j2.gz

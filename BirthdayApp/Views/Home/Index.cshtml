@@ -1,8 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard Overview";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-8 text-center">
+        <!-- Main Hero Section -->
+        <div class="glass-card p-5 shadow-lg rounded-4">
+            <h1 class="display-3 fw-bold text-gradient mb-3">Joy Stream</h1>
+            <p class="lead text-white-50 mb-4">
+                Your centralized enterprise solution for precision birthday tracking and team milestone synchronization.
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Birthday" asp-action="Index" class="btn btn-outline-light px-4 py-2">
+                        <i class="bi bi-speedometer2"></i> Access Dashboard
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-info px-4 py-2">
+                        <i class="bi bi-box-arrow-in-right"></i> Sign In to System
+                    </a>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-outline-light px-4 py-2">
+                        Create Account
+                    </a>
+                }
+            </div>
+        </div>
+
+        <!-- Secondary Info -->
+        <div class="mt-5 text-white-50 small">
+            <p>Managed securely with ASP.NET Core Identity & Entity Framework.</p>
+        </div>
+    </div>
 </div>

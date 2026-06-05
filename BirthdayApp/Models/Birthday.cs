@@ -10,5 +10,8 @@ namespace BirthdayApp.Models
 
         // Tracks which user added this record
         public string CreatedBy { get; set; } = string.Empty;
+
+        // Added for Soft Delete pattern
+        public bool IsDeleted { get; set; } = false;
     }
 }

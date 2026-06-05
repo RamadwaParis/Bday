@@ -1,21 +1,17 @@
 using BirthdayApp.Data;
 using BirthdayApp.Models;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Hook Connection String Data
+// 1. Database Configuration
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-// Setup Security Pipeline Core
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+// 2. Security & Identity Pipeline
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 4;
     options.Password.RequireNonAlphanumeric = false;
@@ -24,24 +20,26 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options => {
+builder.Services.ConfigureApplicationCookie(options =>
+{
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/Login";
 });
 
-// Enable Session State (Required for Hardcoded Admin Flow)
+// 3. Session State (Required for your Hardcoded Admin logic)
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options => {
-    options.IdleTimeout = System.TimeSpan.FromMinutes(30);
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
-// MVC Engine Support
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// 4. Request Pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -50,16 +48,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
-// Activate Sessions before Authorization
+// Middleware Order is critical: Session -> Auth -> Authorization
 app.UseSession();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Sets application to start directly on the Login screen
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");

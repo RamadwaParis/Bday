@@ -1,31 +1,32 @@
-html {
-  font-size: 14px;
+/* --- Professional Grid Blend --- */
+/* Target your existing grid containers */
+.grid-container {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1rem;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* The cards inside your grid */
+.admin-grid-item {
+    background: rgba(30, 41, 59, 0.4) !important; /* Deep dark slate with transparency */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Very subtle border */
+    border-radius: 16px !important;
+    padding: 20px !important;
+    color: #e2e8f0 !important; /* Soft white/light grey text */
+    backdrop-filter: blur(10px); /* The "glass" effect */
+    transition: background 0.3s ease;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+    /* Make text inside the grid items readable */
+    .admin-grid-item h1,
+    .admin-grid-item h2,
+    .admin-grid-item h3,
+    .admin-grid-item p {
+        color: #f8fafc !important;
+    }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
+    /* Hover effect for professionalism */
+    .admin-grid-item:hover {
+        background: rgba(30, 41, 59, 0.6) !important;
+        border-color: rgba(56, 189, 248, 0.3) !important;
+    }

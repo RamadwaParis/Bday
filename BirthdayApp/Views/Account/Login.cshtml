@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "_Layout";
+    ViewData["Title"] = "Login";
 }
 
 <style>
@@ -35,9 +36,7 @@
         flex-direction: column;
         justify-content: center;
     }
-</style>
 
-<style>
     @@media (max-width: 992px) {
         .split-viewport-wrapper {
             grid-template-columns: 1fr !important;
@@ -55,7 +54,6 @@
 
 <div class="container p-0">
     <div class="split-viewport-wrapper">
-
         <div class="split-visual-canvas"></div>
 
         <div class="split-form-panel">
@@ -64,20 +62,26 @@
 
             @if (TempData["SuccessMessage"] != null)
             {
-                <div class="alert alert-success border-success-subtle bg-dark text-success small text-center py-2 mb-3">@TempData["SuccessMessage"]</div>
+                <div class="alert alert-success border-success-subtle bg-dark text-success small text-center py-2 mb-3">
+                    @TempData["SuccessMessage"]
+                </div>
             }
 
-            <form method="post" action="/Account/Login">
-                <div class="text-danger small mb-3">@Html.ValidationSummary(true)</div>
+            <form asp-action="Login" method="post">
+                <div class="text-danger small mb-3">
+                    <div asp-validation-summary="All"></div>
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label small fw-semibold text-white-50 mb-1">Email Address</label>
-                    <input type="email" name="email" class="form-control text-white py-2 px-3 rounded-3" placeholder="name@domain.com" required style="background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.15);" />
+                    <input type="email" name="email" class="form-control text-white py-2 px-3 rounded-3"
+                           placeholder="name@domain.com" required style="background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.15);" />
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label small fw-semibold text-white-50 mb-1">Password</label>
-                    <input type="password" name="password" class="form-control text-white py-2 px-3 rounded-3" placeholder="••••••••" required style="background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.15);" />
+                    <input type="password" name="password" class="form-control text-white py-2 px-3 rounded-3"
+                           placeholder="••••••••" required style="background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.15);" />
                 </div>
 
                 <button type="submit" class="btn btn-luxury-primary w-100 fw-bold py-2.5 shadow-sm mt-2">Sign In to Dashboard</button>
@@ -85,9 +89,8 @@
 
             <div class="mt-4 text-center small">
                 <span class="text-white-50">Request access platform profile?</span>
-                <a href="/Account/Register" class="text-info fw-semibold text-decoration-none ms-1">Create account</a>
+                <a asp-action="Register" class="text-info fw-semibold text-decoration-none ms-1">Create account</a>
             </div>
         </div>
-
     </div>
 </div>
